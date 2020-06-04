@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on }">
         <v-btn color="orange" dark v-on="on" @click="login = true">Войти</v-btn>
       </template>
-      <v-card v-if="register">
+      <v-card v-if="isRegister">
         <v-card-title>
           <span class="headline">Регистрация</span>
         </v-card-title>
@@ -26,10 +26,10 @@
                 <v-text-field label="Email*"  prepend-inner-icon="mdi-email" required></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Пароль*" prepend-inner-icon='mdi-lock' type="password" required></v-text-field>
+                <v-text-field label="Пароль*" :prepend-inner-icon='compareLock' type="password" required v-model="user_password1"></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Повторить пароль*" prepend-inner-icon='mdi-lock-open' type="check_password" required></v-text-field>
+                <v-text-field label="Повторить пароль*" :prepend-inner-icon='compareLock' type="password" required v-model="user_password2" @blur="comparePassword"></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field label="Номер телефона" prepend-inner-icon='mdi-phone'></v-text-field>
@@ -74,12 +74,12 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="login = true">Войти</v-btn>
+          <v-btn color="blue darken-1" text @click="isLogin = true; isRegister = false">Войти</v-btn>
           <v-btn color="blue darken-1" text @click="dialog = false">Закрыть</v-btn>
           <v-btn color="blue darken-1" text @click="dialog = false">Зарегистрироваться</v-btn>
         </v-card-actions>
       </v-card>
-      <v-card v-if="login">
+      <v-card v-if="isLogin">
         <v-card-title>
             <span class="headline">Авторизация</span>
         </v-card-title>
@@ -94,7 +94,7 @@
         <v-card-actions>
             
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="register = true; login = false">Зарегистрироваться</v-btn>
+            <v-btn color="blue darken-1" text @click="isRegister = true; isLogin = false">Зарегистрироваться</v-btn>
             <v-btn color="blue darken-1" text @click="dialog = false">Закрыть</v-btn>
             <v-btn color="blue darken-1" text @click="dialog = false">Войти</v-btn>
         </v-card-actions>
@@ -105,27 +105,19 @@
 
 
 <script>
-  export default {
-    data: () => ({
-      dialog: false,
-      login: true,
-      register: false
-    }),
-  }
-</script>
-
-<script>
     export default {
-    data () {
-        return {
-            dialog: false,
-            isTrue: true
-        }
-    },
-    data: () => ({
+    data() {
+      return{
+      dialog: false,
+      isRegister: true,
+      isLogin: false,
       date: null,
-      menu: false,
-    }),
+      menu: false, 
+      user_password1: '',
+      user_password2: '',
+      compareLock: 'mdi-lock-open'
+      }
+    },
     watch: {
       menu (val) {
         val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
@@ -134,6 +126,11 @@
     methods: {
       save (date) {
         this.$refs.menu.save(date)
+      },
+      comparePassword() {
+        if (this.user_password1 == this.user_password2){
+          this.compareLock = 'mdi-lock';
+        }
       },
     },
   }
