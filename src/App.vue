@@ -1,23 +1,24 @@
 <template>
   <v-app>
    
-    <v-content>
+    <v-content >
       <HelloWorld/>
-      <loginApp />
+      <headerApp />
     </v-content>
   </v-app>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld';
-import loginApp from './components/loginApp';
+import headerApp from './components/headerApp';
+
 
 export default {
   name: 'App',
 
   components: {
     HelloWorld,
-    loginApp
+    headerApp
   },
 
   data: () => ({

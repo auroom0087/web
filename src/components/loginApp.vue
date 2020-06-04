@@ -26,10 +26,10 @@
                 <v-text-field label="Email*"  prepend-inner-icon="mdi-email" required></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Пароль*" :prepend-inner-icon='compareLock' type="password" required v-model="user_password1"></v-text-field>
+                <v-text-field label="Пароль*" :prepend-inner-icon='compareLock' type="password" required v-model="user_password1" @blur="comparePassword" :style="equalColor"></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Повторить пароль*" :prepend-inner-icon='compareLock' type="password" required v-model="user_password2" @blur="comparePassword"></v-text-field>
+                <v-text-field label="Повторить пароль*" :prepend-inner-icon='compareLock' type="password" required v-model="user_password2" @blur="comparePassword" :style='equalColor'></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field label="Номер телефона" prepend-inner-icon='mdi-phone'></v-text-field>
@@ -115,7 +115,8 @@
       menu: false, 
       user_password1: '',
       user_password2: '',
-      compareLock: 'mdi-lock-open'
+      compareLock: 'mdi-lock-open',
+      equalColor:'color: black'
       }
     },
     watch: {
@@ -130,6 +131,10 @@
       comparePassword() {
         if (this.user_password1 == this.user_password2){
           this.compareLock = 'mdi-lock';
+          this.equalColor = 'color: green';
+        }
+        else {
+          this.compareLock = 'mdi-lock-open';
         }
       },
     },
