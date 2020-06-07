@@ -1,36 +1,64 @@
 
 <template>
+
   <v-card
     color="grey lighten-4"
     tile
   >
-    <v-toolbar flat extended>
+  <v-container >
 
-      <v-toolbar-title>ЕРА ГОЛОСУЕТ </v-toolbar-title>
+    <v-toolbar flat color="grey lighten-4">
+      <v-row justify="center">
+        <v-toolbar-title class="mr-3 pl-2 pr-2" height="36px" >iАлтай</v-toolbar-title>
+        <div height="36px">
+          <v-toolbar-items-group v-model="item" >
+            <v-btn 
+              v-for="(item, index) in items"
+              :key="index"
+              :href="item.href"
+              class="pa-2"
+              text
+              >
+              <span> {{ item.title }} </span>
+            </v-btn>
+          </v-toolbar-items-group>
 
-      <v-spacer></v-spacer>
+        </div> 
+        <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
+        <v-card>
+          <userbarApp/>
+        </v-card>
 
-      <loginApp />
+        
+      </v-row>
+      
     </v-toolbar>
+  
+  </v-container>
+    
+
+    
   </v-card>
 </template>
 
+
 <script>
-import loginApp from './loginApp'; 
+import userbarApp from './userbarApp'; 
    export default {
     name: 'App',
 
     components: {
-        loginApp
+        userbarApp
     },
 
     data: () => ({
-        //
-    }),
+        items: [
+        { title: 'Голосование', icon:'mdi-vote', href:'#' },
+        { title: 'Результаты', icon:'mdi-bookmark-outline', href:'#'},
+        { title: 'Магазин поощрений', icon: 'mdi-cart', href:'#' },
+      ]
+    })
 };
 
 </script>

@@ -2,23 +2,29 @@
   <v-app>
    
     <v-content >
-      <HelloWorld/>
       <headerApp />
+      <v-container>
+        <shopApp/>
+      </v-container> 
+      <footerApp class="mt-5"/>
     </v-content>
   </v-app>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld';
-import headerApp from './components/headerApp';
 
+
+<script>
+import headerApp from './components/headerApp';
+import footerApp from './components/footerApp';
+import shopApp from './components/shopApp';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
-    headerApp
+    headerApp,
+    footerApp,
+    shopApp
   },
 
   data: () => ({
